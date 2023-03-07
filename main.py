@@ -1,13 +1,27 @@
-from flask import Flask, render_template
-import os
+"""
+Backend of "Mnogomov" project
+"""
 
-template_dir = os.path.abspath('/home/oigenoum/PycharmProjects/Mnogomov/frontend/templates')
-app = Flask(__name__, template_folder=template_dir)
+from flask import Flask, render_template
+
+app = Flask(__name__, template_folder="../Mnogomov/templates")
+
 
 @app.route("/")
 @app.route("/home")
 def home_page():
-    return render_template('index.html')
+    """
+    Show user the homepage
+    """
+    return render_template("home.html")
+
+
+@app.route("/lesson/")
+def lesson():
+    """
+    Show user the about page
+    """
+    return render_template('lesson.html')
 
 
 if __name__ == '__main__':

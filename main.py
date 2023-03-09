@@ -19,7 +19,7 @@ db = mysql.connector.connect(
 
 cursor = db.cursor()
 # Retrieve questions from db
-query = "SELECT * FROM question LIMIT 10"
+query = "SELECT * FROM question"
 cursor.execute(query)
 questions = cursor.fetchall()
 # Shut down connection

@@ -41,6 +41,11 @@ def home():
 def display_question():
     global current_question
 
+    # Check if the user has already answered 10 questions
+    if current_question >= 10:
+        # Redirect the user to a new page or show a message
+        return render_template('home.html')
+
     # Check if we've reached the end of the questions list
     if current_question >= len(questions):
         # Reset the current_question index to 0

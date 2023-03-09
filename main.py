@@ -19,7 +19,7 @@ db = mysql.connector.connect(
 
 cursor = db.cursor()
 # Retrieve questions from db
-query = "SELECT * FROM question LIMIT 10"
+query = "SELECT * FROM question"
 cursor.execute(query)
 questions = cursor.fetchall()
 # Shut down connection
@@ -40,6 +40,11 @@ def home():
 @app.route('/lesson')
 def display_question():
     global current_question
+
+    # Check if the user has already answered 10 questions
+    if current_question >= 10:
+        # Redirect the user to a new page or show a message
+        return render_template('home.html')
 
     # Check if we've reached the end of the questions list
     if current_question >= len(questions):

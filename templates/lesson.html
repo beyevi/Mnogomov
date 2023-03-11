@@ -5,13 +5,15 @@
   </head>
   <body>
     <p>{{ question[2] }}</p>
-    <form>
-      <img src="/img/mnogomov_panasovych.png" alt="SomePicture"/><br>
+    <!-- could also use action={{url_for('submit_answer')}} -->
+    <form method="POST" action="/submit_answer">
+      <img src="/static/img/text_logo1.png" alt="SomePicture"/><br>
       <input type="radio" name="answer" value="1">{{ question[3] }}<br>
       <input type="radio" name="answer" value="2">{{ question[4] }}<br>
       <input type="radio" name="answer" value="3">{{ question[5] }}<br>
       <input type="submit" value="Submit">
     </form>
+
     {% if current_question < 10 %}
     <button onclick="window.location.href='/'">Return to main</button>
     {% endif %}

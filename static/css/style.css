@@ -1,0 +1,32 @@
+.submenu:hover ul {
+    display: block;
+    transition: height 2s;
+
+}
+
+.container {
+    height: 100%;
+    width: 100%;
+    margin-top: 30px;
+    position: center;
+    text-align: center;
+    font-size: 60px;
+    list-style-type: none;
+
+}
+
+.container ul{
+    list-style-type: none;
+    border: 2px solid black;
+
+}
+
+.submenu ul {
+    top: 30px;
+    font-size: 30px;
+    display: none;
+    border: none;
+    text-align: center;
+    list-style-type: disc;
+    list-style-position: inside;
+}

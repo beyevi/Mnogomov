@@ -1,0 +1,38 @@
+body {
+    background-color: #1A3950;
+  }
+
+  h1 {
+    color: #ffff;
+    font-family: 'Bona Nova', serif;
+    font-size: 50px;
+    font-weight: bold;
+    position: relative;
+    left: 1050px;
+  }
+
+  h2 {
+    color: #ffff;
+    font-family: 'Bona Nova', serif;
+    font-size: 40px;
+    font-weight: lighter;
+    position: relative;
+    top: 20px;
+    left: 130px;
+  }
+
+  div [class="text-column"] {
+    color: #ffff;
+    font-family: 'Bona Nova', serif;
+    font-size: 30px;
+    font-weight: lighter;
+    position: relative;
+    top: 20px;
+    left: 130px;
+  }
+
+  div [class="image-column"] {
+    position: relative;
+    top: 20px;
+    left: 300px;
+  }

@@ -1,0 +1,38 @@
+body {
+    background-color: #1A3950;
+  }
+
+p {
+    position: relative;
+    left: 100px;
+    font-size: 40px;
+    color: #F5EDE8;
+    font-weight: bold;
+}
+
+img {
+    position: relative;
+    top: 300px;
+    left: 100px;
+}
+
+h1 {  
+    font-size: 40px;
+    color: #F5EDE8;
+    font-family: 'Bona Nova', serif;
+    text-align:center;
+    position: relative;
+    top: 200px;
+    left: 690px;
+}
+
+h2 {
+    font-size: 30px;
+    color: #F5EDE8;
+    font-family: 'Bona Nova', serif;
+    text-align:center;
+    text-decoration: underline;
+    position: relative;
+    top: 250px;
+    left: 500px;
+}

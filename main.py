@@ -29,7 +29,12 @@ db.close()
 current_question = 0
 
 
-@app.route("/")
+@app.route('/')
+def main():
+    return render_template('main.html')
+
+
+@app.route("/home")
 def home():
     """
     Show user the homepage
@@ -47,7 +52,7 @@ def display_question():
     # Check if the user has already answered 10 questions
     if current_question >= 10:
         # Redirect the user to a new page or show a message
-        return redirect("/")
+        return redirect("/home")
 
     # Check if we've reached the end of the questions list
     if current_question >= len(questions):
@@ -100,7 +105,7 @@ def submit_answer():
         # Check if the user has answered 10 questions
         if current_question >= 10:
             # Redirect the user to the home page with their score
-            return redirect(url_for('home', score=session.get('score', 0)))
+            return redirect(url_for('home'))
         # Display the same question again
         return redirect(url_for('display_question'))
 

@@ -34,7 +34,7 @@ def main():
     return render_template('main.html')
 
 
-@app.route("/home")
+@app.route("/homepage")
 def home():
     """
     Show user the homepage
@@ -42,6 +42,16 @@ def home():
     global current_question
     current_question = 0
     return render_template("home.html")
+
+
+@app.route('/about')
+def about_page():
+    return render_template('about.html')
+
+
+@app.route('/vocabulary')
+def vocabulary():
+    return render_template('vocabulary.html')
 
 
 @app.route('/lesson')
@@ -53,11 +63,6 @@ def display_question():
     if current_question >= 10:
         # Redirect the user to a new page or show a message
         return redirect("/home")
-
-    # Check if the user has already answered 10 questions
-    if current_question >= 10:
-        # Redirect the user to a new page or show a message
-        return render_template('home.html')
 
     # Check if we've reached the end of the questions list
     if current_question >= len(questions):
@@ -90,7 +95,7 @@ def submit_answer():
     global current_question
 
     # Get the user's answer from the form data
-    user_answer = request.form.get('answer')
+    user_answer = request.form.get('question_answer')
 
     # Check if the user's answer is correct
     question = questions[current_question - 1]

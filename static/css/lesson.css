@@ -1,26 +1,25 @@
 
 body {
     background-color: #1A3950;
-  }
-  
-  /* питання */
-  p {
+}
+
+/* питання */
+p {
     color: #ffff;
     font-family: 'Bona Nova', serif;
     font-size: 50px;
     text-align: center;
     position: relative; /* встановлюємо тип позиціонування */
     top: 30px; /* зсуваємо кнопку вниз */
-  }
+}
 
-  picture{
+picture{
     position:relative;
     left: 720px;
-    top: 50px
+    top: 50px;
+}
 
-  }
-  
-  answer {
+answer {
     color: #D0CFCF;
     font-family: 'Courier New', Courier, monospace, sans-serif;
     font-size: 18px;
@@ -28,7 +27,7 @@ body {
     border-radius: 20px;
     background-color: #D0CFCF; /* колір кнопки */
     border: #1A3950; /* видаляємо рамку */
-    color:#1A3950; /* колір тексту */
+    color: #1A3950; /* колір тексту */
     padding: 20px 24px; /* відступи від тексту до рамки */
     text-align: center; /* вирівнювання тексту */
     font-family: 'Bona Nova', serif;
@@ -38,9 +37,13 @@ body {
     position: absolute; /* встановлюємо тип позиціонування */
     left: 650px;
     transform: translateY(150%);
-  }
-  
-   check [type="submit"]{
+}
+
+.answer-option {
+
+}
+
+check [type="submit"]{
     background-color: #D0CFCF;
     border-radius: 20px;
     color:#1A3950; /* колір тексту */
@@ -54,11 +57,11 @@ body {
     top: 450px; /* зсуваємо кнопку вниз */
     left: 1240px;
     cursor: pointer; /* змінюємо курсор при наведенні */
-  }
+}
 
 
-  /* return to main */
-  button {
+/* return to main */
+button {
     border-radius: 20px;
     background-color: #D0CFCF; /* колір кнопки */
     border: #1A3950; /* видаляємо рамку */
@@ -72,4 +75,4 @@ body {
     position: relative; /* встановлюємо тип позиціонування */
     top: 450px; /* зсуваємо кнопку вниз */
     right: 150px;
-  }
+}

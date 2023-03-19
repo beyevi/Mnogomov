@@ -10,29 +10,35 @@ p {
     font-weight: bold;
 }
 
+main_display {
+    justify-content: center;
+}
+
 img {
     position: relative;
-    top: 300px;
+    top: 150px;
     left: 100px;
 }
 
-h1 {  
+h1 {
+    width: 700px;
     font-size: 40px;
     color: #F5EDE8;
     font-family: 'Bona Nova', serif;
-    text-align:center;
+    /*text-align: center;*/
     position: relative;
-    top: 200px;
-    left: 690px;
+    left: 750px;
+    bottom: 200px;
+    overflow-wrap: break-word;
 }
 
 h2 {
     font-size: 30px;
     color: #F5EDE8;
     font-family: 'Bona Nova', serif;
-    text-align:center;
+    text-align: center;
     text-decoration: underline;
     position: relative;
-    top: 250px;
-    left: 500px;
+    bottom: 200px;
+    left: 200px;
 }

@@ -75,22 +75,11 @@ def display_question():
     # Increment the current question index
     current_question += 1
 
-    # if request.method == "POST":
-    #     user_answer = request.form['answer']
-    #     query = "SELECT correct FROM question WHERE id=%s"
-    #     cursor.execute(query, (question[0],))
-    #     correct_answer = cursor.fetchone()[0]
-    #
-    #     if int(user_answer) == correct_answer:
-    #         return render_template('lesson.html', question=question, current_question=current_question, success=True)
-    #     else:
-    #         return render_template('lesson.html', question=question, current_question=current_question, success=False)
-
     # Render the template with the question data
     return render_template('lesson.html', question=question, current_question=current_question)
 
 
-@app.route('/submit_answer', methods=['POST'])
+@app.route('/lesson/submit_answer', methods=['GET', 'POST'])
 def submit_answer():
     global current_question
 

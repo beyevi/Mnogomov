@@ -1,78 +1,159 @@
 
+/*body {*/
+/*    background-color: #1A3950;*/
+/*}*/
+
+/*!* питання *!*/
+/*p {*/
+/*    color: #ffff;*/
+/*    font-family: 'Bona Nova', serif;*/
+/*    font-size: 50px;*/
+/*    text-align: center;*/
+/*    position: relative; !* встановлюємо тип позиціонування *!*/
+/*    top: 30px; !* зсуваємо кнопку вниз *!*/
+/*}*/
+
+/*picture{*/
+/*    position:relative;*/
+/*    left: 720px;*/
+/*    top: 50px;*/
+/*}*/
+
+/*answer {*/
+/*    color: #D0CFCF;*/
+/*    font-family: 'Courier New', Courier, monospace, sans-serif;*/
+/*    font-size: 18px;*/
+/*    text-align: center;*/
+/*    border-radius: 20px;*/
+/*    background-color: #D0CFCF; !* колір кнопки *!*/
+/*    border: #1A3950; !* видаляємо рамку *!*/
+/*    color: #1A3950; !* колір тексту *!*/
+/*    padding: 20px 24px; !* відступи від тексту до рамки *!*/
+/*    text-align: center; !* вирівнювання тексту *!*/
+/*    font-family: 'Bona Nova', serif;*/
+/*    font-size: 18px; !* розмір тексту *!*/
+/*    font-weight: bold;*/
+/*    cursor: pointer; !* змінюємо курсор при наведенні *!*/
+/*    position: absolute; !* встановлюємо тип позиціонування *!*/
+/*    left: 650px;*/
+/*    transform: translateY(150%);*/
+/*}*/
+
+/*.answer-option {*/
+
+/*}*/
+
+/*check [type="submit"]{*/
+/*    background-color: #D0CFCF;*/
+/*    border-radius: 20px;*/
+/*    color:#1A3950; !* колір тексту *!*/
+/*    padding: 12px 24px; !* відступи від тексту до рамки *!*/
+/*    text-align: center; !* вирівнювання тексту *!*/
+/*    font-family: 'Bona Nova', serif;*/
+/*    font-size: 18px; !* розмір тексту *!*/
+/*    font-weight: bold;*/
+/*    display: inline-block; !* встановлення блочного типу відображення *!*/
+/*    position: relative; !* встановлюємо тип позиціонування *!*/
+/*    top: 450px; !* зсуваємо кнопку вниз *!*/
+/*    left: 1240px;*/
+/*    cursor: pointer; !* змінюємо курсор при наведенні *!*/
+/*}*/
+
+
+/*!* return to main *!*/
+/*button {*/
+/*    border-radius: 20px;*/
+/*    background-color: #D0CFCF; !* колір кнопки *!*/
+/*    border: #1A3950; !* видаляємо рамку *!*/
+/*    color:#1A3950; !* колір тексту *!*/
+/*    padding: 12px 24px; !* відступи від тексту до рамки *!*/
+/*    text-align: center; !* вирівнювання тексту *!*/
+/*    font-family: 'Bona Nova', serif;*/
+/*    font-size: 18px; !* розмір тексту *!*/
+/*    font-weight: bold;*/
+/*    cursor: pointer; !* змінюємо курсор при наведенні *!*/
+/*    position: relative; !* встановлюємо тип позиціонування *!*/
+/*    top: 450px; !* зсуваємо кнопку вниз *!*/
+/*    right: 150px;*/
+/*}*/
+
 body {
-    background-color: #1A3950;
+  margin: 0;
+  padding: 0;
+  background-color: #1A3950;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
 }
 
-/* питання */
 p {
-    color: #ffff;
-    font-family: 'Bona Nova', serif;
-    font-size: 50px;
-    text-align: center;
-    position: relative; /* встановлюємо тип позиціонування */
-    top: 30px; /* зсуваємо кнопку вниз */
+  color: #ffff;
+  font-family: 'Bona Nova', serif;
+  font-size: 50px;
+  text-align: center;
+  margin: 0;
 }
 
-picture{
-    position:relative;
-    left: 720px;
-    top: 50px;
+img {
+  height: 200px;
+}
+
+picture {
+  margin-top: 50px;
 }
 
 answer {
-    color: #D0CFCF;
-    font-family: 'Courier New', Courier, monospace, sans-serif;
-    font-size: 18px;
-    text-align: center;
-    border-radius: 20px;
-    background-color: #D0CFCF; /* колір кнопки */
-    border: #1A3950; /* видаляємо рамку */
-    color: #1A3950; /* колір тексту */
-    padding: 20px 24px; /* відступи від тексту до рамки */
-    text-align: center; /* вирівнювання тексту */
-    font-family: 'Bona Nova', serif;
-    font-size: 18px; /* розмір тексту */
-    font-weight: bold;
-    cursor: pointer; /* змінюємо курсор при наведенні */
-    position: absolute; /* встановлюємо тип позиціонування */
-    left: 650px;
-    transform: translateY(150%);
+  color: #D0CFCF;
+  font-family: 'Courier New', Courier, monospace, sans-serif;
+  font-size: 18px;
+  width: 200px;
+  text-align: center;
+  border-radius: 20px;
+  background-color: #D0CFCF;
+  color: #1A3950;
+  padding: 20px 24px;
+  text-align: center;
+  font-family: 'Bona Nova', serif;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 30px;
 }
 
 .answer-option {
-
+  display: block;
+  text-align: center;
+  margin-bottom: 10px;
 }
 
-check [type="submit"]{
-    background-color: #D0CFCF;
-    border-radius: 20px;
-    color:#1A3950; /* колір тексту */
-    padding: 12px 24px; /* відступи від тексту до рамки */
-    text-align: center; /* вирівнювання тексту */
-    font-family: 'Bona Nova', serif;
-    font-size: 18px; /* розмір тексту */
-    font-weight: bold;
-    display: inline-block; /* встановлення блочного типу відображення */
-    position: relative; /* встановлюємо тип позиціонування */
-    top: 450px; /* зсуваємо кнопку вниз */
-    left: 1240px;
-    cursor: pointer; /* змінюємо курсор при наведенні */
+.check {
+  margin-top: 30px;
 }
 
+.check .submit_btn {
+  background-color: #D0CFCF;
+  border-radius: 20px;
+  color: #1A3950;
+  padding: 12px 24px;
+  text-align: center;
+  font-family: 'Bona Nova', serif;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+}
 
-/* return to main */
 button {
-    border-radius: 20px;
-    background-color: #D0CFCF; /* колір кнопки */
-    border: #1A3950; /* видаляємо рамку */
-    color:#1A3950; /* колір тексту */
-    padding: 12px 24px; /* відступи від тексту до рамки */
-    text-align: center; /* вирівнювання тексту */
-    font-family: 'Bona Nova', serif;
-    font-size: 18px; /* розмір тексту */
-    font-weight: bold;
-    cursor: pointer; /* змінюємо курсор при наведенні */
-    position: relative; /* встановлюємо тип позиціонування */
-    top: 450px; /* зсуваємо кнопку вниз */
-    right: 150px;
+  border-radius: 20px;
+  background-color: #D0CFCF;
+  border: none;
+  color: #1A3950;
+  padding: 12px 24px;
+  text-align: center;
+  font-family: 'Bona Nova', serif;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 30px;
 }

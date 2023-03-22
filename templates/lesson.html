@@ -15,7 +15,8 @@
       <input class="answer-option" type="radio" name="question_answer" value="3">{{ question[5] }}<br>
     </answer>
     <check>
-      <input type="submit" value="Submit">
+    <!--    <input type="submit" value="Submit">-->
+    <button class="submit_btn" onclick="window.location.href='lesson/submit_answer'">Submit</button>
     </check>
     {% if current_question < 10 %}
     <button onclick="window.location.href='/'">Return to main</button>

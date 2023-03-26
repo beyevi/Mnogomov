@@ -1,10 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>About Mnogomov</title>
-    <link rel="stylesheet" type="text/css" href="../static/css/about.css">
-  </head>
-  <body>
-    <p>Why Learn with Us</p>
-  </body>
+<html>
+<head>
+	<title>Learn with Us</title>
+  <link rel="stylesheet" type="text/css" href="../static/css/about.css">
+  <style>
+		body {
+			background-image: url("../static/img/aboutus.jpg");
+			background-size: cover;
+			background-position: center center;
+			background-attachment: fixed;
+		}
+		.container {
+			width: 100%;
+			height: 100%;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+		}
+		h1 {
+			font-size: 5em;
+			margin-left: auto;
+			margin-right: auto;
+			color: white;
+		}
+		.box {
+			width: 30%;
+			padding: 1em;
+			margin: 2em;
+			color: white;
+			border: 2px solid white;
+			border-radius: 5px;
+			text-align: center;
+      
+    }
+		.button {
+			position: fixed;
+			bottom: 0;
+			right: 0;
+			margin: 2em;
+			padding: 1em;
+			color: white;
+			background-color: rgba(0, 0, 0, 0.97);
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1>Why Learn with Us</h1>
+		<div class="box">
+			<p  style="font-weight:900">10k + Our Students</p>
+		</div>
+		<div class="box">
+			<p style="font-weight:900">24/7 Learn Anywhere and Anytime</p>
+		</div>
+		<div class="box">
+			<p style="font-weight:900">$0 Free Access</p>
+		</div>
+	</div>
+	<button class="button" onclick="window.location.href = 'main.html';">TO MAIN PAGE</button>
+</body>
 </html>

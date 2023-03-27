@@ -7,8 +7,5 @@ function checkAnswer() {
   } else {
     // Submit the form
     document.getElementById("answer-form").submit();
-    // Hide footbar
-    document.getElementById("footbar_correct").style.display = "none";
-    document.getElementById("footbar_wrong").style.display = "none";
   }
 }

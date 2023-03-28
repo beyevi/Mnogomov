@@ -11,12 +11,13 @@
     <img src="../static/img/mnogomov_panasovych.png" alt="SomePicture"/>
 </picture>
 <answer>
-    <form id="answer-form" method="post" action="/lesson/submit_answer">
-        <input class="answer-option" type="radio" name="question_answer" value="1">{{ question[2] }}<br>
-        <input class="answer-option" type="radio" name="question_answer" value="2">{{ question[3] }}<br>
-        <input class="answer-option" type="radio" name="question_answer" value="3">{{ question[4] }}<br>
-    </form>
+  <form id="answer-form" method="post" action="/lesson/submit_answer">
+    <label><input class="answer-option" type="radio" name="question_answer" value="1">{{ question[2] }}</label><br>
+    <label><input class="answer-option" type="radio" name="question_answer" value="2">{{ question[3] }}</label><br>
+    <label><input class="answer-option" type="radio" name="question_answer" value="3">{{ question[4] }}</label><br>
+  </form>
 </answer>
+
 
 <check>
     <p id="response_message"></p>

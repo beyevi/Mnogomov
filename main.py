@@ -55,6 +55,9 @@ def about_page():
 def vocabulary():
     return render_template('vocabulary.html')
 
+@app.route('/practice')
+def practice():
+    return render_template('practice.html')
 
 @app.route('/lesson')
 def display_question():
@@ -110,7 +113,6 @@ def submit_answer():
             # Redirect the user to the home page with their score ======================================================
             return redirect(url_for('home', score=score))
         # Display the next question ====================================================================================
-        sleep(1)
         return redirect(url_for('display_question'))
     else:
         session["last_correct_answer"] = False
@@ -124,7 +126,6 @@ def submit_answer():
             # Redirect the user to the home page with their score ======================================================
             return redirect(url_for('home'))
         # Display the same question again ==============================================================================
-        sleep(1)
         return redirect(url_for('display_question'))
 
 

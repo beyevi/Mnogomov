@@ -1,133 +1,276 @@
 """
-Backend of "Mnogomov" project
+OOP-ed 'Mnogomov' after Eugene fucked up drastically
 """
 
-
-from flask import Flask, render_template, request, redirect, session, url_for
+from flask import Flask, render_template, request, redirect, url_for
 import mysql.connector
-from time import sleep
-
 
 app = Flask(__name__, template_folder="../Mnogomov/templates")
 app.secret_key = "BE_Cheporte_157E3_Legion"
 
-db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="root",
-    port='3306',
-    database="mnogomov"
-)
 
-cursor = db.cursor()
-# Retrieve questions from db
-query = "SELECT * FROM lesson"
-cursor.execute(query)
-questions = cursor.fetchall()
-# Shut down connection
-cursor.close()
-db.close()
-
-current_question = 0
-
-
-@app.route('/')
-def main():
-    return render_template('main.html')
-
-
-@app.route("/homepage")
-def home():
+class Question:
     """
-    Show user the homepage
+    Take retrieved data from 'mnogomov' db and use it to form a question, which
+    will be displayed during a lesson.
     """
-    global current_question
-    current_question = 0
-    return render_template("home.html")
+
+    def __init__(self,
+                 id_question: int,
+                 question_text: str,
+                 option1: str,
+                 option2: str,
+                 option3: str,
+                 answer: str,
+                 content: str):
+        self.id = id_question
+        self.text = question_text
+        self.options = [option1, option2, option3]
+        self.answer = answer
+        self.content = content
+
+    def correct(self, user_answer: str) -> bool:
+        """
+        Check if user has answered correctly
+
+        :param user_answer: user choice, one of three possible options (1, 2 or 3)
+        :return: True if correct, else False
+        """
+        return str(self.answer) == user_answer
+
+    def to_dict(self) -> dict:
+        """
+        Convert question data into dictionary for keeping data if needed.
+
+        :return: dictionary with question parameters
+        """
+        return {
+            "id": self.id,
+            "question text": self.text,
+            "options": self.options,
+            "correct answer": self.answer
+        }
 
 
-@app.route('/about')
-def about_page():
-    return render_template('about.html')
+class LessonQuiz:
+    """
+    Generate several question into one solis quiz which will be used for
+    handling language lessons.
+    """
+
+    def __init__(self, questions):
+        self.questions = questions
+        self.current_q_idx = 0
+        self.score = 0
+
+    def get_score(self) -> int:
+        """
+        Return user score after lesson
+
+        :return: integer representing user score
+        """
+        return self.score
+
+    def reset_lesson(self) -> None:
+        """
+        Reset score and question index
+
+        :return: None
+        """
+        self.score = 0
+        self.current_q_idx = 0
+
+    def current_q(self) -> Question:
+        """
+        Return data of question with specific index to be displayed
+        """
+        return self.questions[self.current_q_idx]
+
+    def check_answers(self, user_answer: str) -> bool:
+        """
+        Check user answers and change score according to results
+
+        :param user_answer: user answer got from 'request.form'
+        :return: True/False
+        """
+        if self.current_q().correct(user_answer):
+            answer_result = True
+            self.score += 1
+        else:
+            answer_result = False
+        self.current_q_idx += 1
+        return answer_result
+
+    def is_finished(self) -> bool:
+        """
+        Check if user has answered all questions
+
+        :return: True if all questions are answered, else False
+        """
+        return self.current_q_idx >= len(self.questions) or self.current_q_idx >= 10
+
+    def to_dict(self) -> dict:
+        """
+        Convert questions data into dictionary for keeping data if needed.
+
+        :return: dictionary with questions
+        """
+        return {
+            "questions": [q.to_dict() for q in self.questions],
+            "current_q_idx": self.current_q_idx,
+            "score": self.score
+        }
 
 
-@app.route('/vocabulary')
-def vocabulary():
-    return render_template('vocabulary.html')
+class DataBase:
+    """
+    'Mnogomov' database for keeping data for questions and lessons, such as:
+    question texts, answer options, correct answers, words definitions, etc.
+    """
 
-@app.route('/practice')
-def practice():
-    return render_template('practice.html')
+    def __init__(self):
+        self.db = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="root",
+            port='3306',
+            database="mnogomov"
+        )
 
-@app.route('/lesson')
-def display_question():
-    global current_question
-    # Check if the user has already answered 10 questions
-    if current_question >= 10:
-        # Redirect the user to a new page or show a message
-        return redirect("/homepage")
+    def get_questions_data(self) -> list:
+        """
+        Get questions from db using MySQL
 
-    # Check if we've reached the end of the questions list
-    if current_question >= len(questions):
-        # Reset the current_question index to 0
-        current_question = 0
+        :return: list with questions
+        """
+        cursor = self.db.cursor()
+        query = "SELECT * FROM lesson"
+        cursor.execute(query)
+        questions = cursor.fetchall()
+        cursor.close()
+        return [Question(*q) for q in questions]
 
-    # Set the current_question to 1 if it is the first question
-    if current_question == 0:
-        session['current_question'] = 1
-    else:
-        session['current_question'] = 0
+    def close_db(self) -> None:
+        """
+        Close connection with db
 
-    # Increment the current question index
-    current_question += 1
-
-    # Get the current question from the list of questions
-    question = questions[current_question - 1]
-
-    # Render the template with the question data
-    return render_template('lesson.html', question=question, current_question=current_question)
-
-
-num_of_failures = 0
+        :return: None
+        """
+        self.db.close()
 
 
-@app.route('/lesson/submit_answer', methods=['GET', 'POST'])
-def submit_answer():
-    global current_question
-    global num_of_failures
-    session["last_correct_answer"] = None
+class App:
+    """
+    WebApp itself
+    """
 
-    # Get the user's answer from the form data =========================================================================
-    user_answer = request.form.get('question_answer')
+    def __init__(self):
+        self.db = DataBase()
+        self.lesson = LessonQuiz(self.db.get_questions_data())
 
-    # Check if the user's answer is correct ============================================================================
-    question = questions[current_question - 1]
-    correct_answer = int(question[5])
-    if user_answer == str(correct_answer):
-        session["last_correct_answer"] = True
-        # Increment the user's score ===================================================================================
-        score = session.get('score', 0) + 1
-        session['score'] = score
-        # Check if the user has answered 10 questions ==================================================================
-        if current_question >= 10:
-            # Redirect the user to the home page with their score ======================================================
-            return redirect(url_for('home', score=score))
-        # Display the next question ====================================================================================
-        return redirect(url_for('display_question'))
-    else:
-        session["last_correct_answer"] = False
-        num_of_failures += 1
-        session['failures'] = num_of_failures
-        if num_of_failures == 3:
-            session['failures'] = 0
-            return redirect(url_for('home'))
-        # Check if the user has answered 10 questions ==================================================================
-        if current_question >= 10:
-            # Redirect the user to the home page with their score ======================================================
-            return redirect(url_for('home'))
-        # Display the same question again ==============================================================================
-        return redirect(url_for('display_question'))
+    @app.route('/search', methods=['GET'])
+    def search(self):
+        """
+        Used to find parameters in query
+        """
+        args = request.args
+        result = args.get('result')
+        return True if result == 'True' else False
+
+    @staticmethod
+    @app.route('/')
+    def main():
+        """
+        Render main.html to display a welcome page.
+        """
+        return render_template('main.html')
+
+    @staticmethod
+    @app.route('/homepage')
+    def show_homepage():
+        """
+        Render home.html to display a homepage.
+        """
+        # =====================================================
+        if mnogomov_webapp.lesson.is_finished():
+            return redirect(url_for('show_score'))
+        # =====================================================
+        mnogomov_webapp.lesson.current_q_idx = 0
+        return render_template('home.html')
+
+    @staticmethod
+    @app.route('/about')
+    def show_about():
+        """
+        Render about.html to display about page.
+        """
+        return render_template('about.html')
+
+    @staticmethod
+    @app.route('/vocabulary')
+    def show_vocabulary():
+        """
+        Render vocabulary.html to display vocabulary for each lesson.
+        """
+        return render_template('vocabulary.html')
+
+    @staticmethod
+    @app.route('/show_score')
+    def show_score():
+        """
+        Render a page to display user score
+        """
+        score = mnogomov_webapp.lesson.get_score()
+        mnogomov_webapp.lesson.reset_lesson()
+        return render_template('score.html', score=score)
+
+    @staticmethod
+    @app.route('/practice')
+    def practice():
+        """
+        Render practice.html to redirect user to practice tab
+        """
+        return render_template('practice.html')
+
+    @staticmethod
+    @app.route('/lesson')
+    def display_question():
+        """
+        Display a question
+        """
+        if mnogomov_webapp.lesson.is_finished():
+            return redirect(url_for('show_score'))
+        question = mnogomov_webapp.lesson.current_q()
+        result = mnogomov_webapp.search()
+        print(result)
+        return render_template('lesson.html',
+                               question=question,
+                               id_current_question=mnogomov_webapp.lesson.current_q_idx + 1,
+                               result=result)
+
+    @staticmethod
+    @app.route('/lesson/submit_answer', methods=["POST"])
+    def submit_answer():
+        """
+        Accept user answer and send it to be checked
+        """
+        answer = request.form['question_answer']
+        result = mnogomov_webapp.lesson.check_answers(answer)
+
+        if mnogomov_webapp.lesson.is_finished():
+            return redirect(url_for('show_score'))
+
+        return redirect(url_for('display_question', result=result))
+
+    @staticmethod
+    def run():
+        """
+        Run 'Mnogomov'
+        """
+        app.run(debug=True)
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    mnogomov_webapp = App()
+
+    mnogomov_webapp.run()

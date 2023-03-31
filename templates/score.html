@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Score</title>
+  <style>
+		body {
+			background-color: #1A3950;
+		}
+
+        p {
+            font-size: 50px;
+            color: #F5EDE8;
+            font-family: 'Bona Nova', serif;
+            text-align: center;
+            position: relative;
+            top: 100px;
+        }
+
+        img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            position: relative;
+            left: 670px;
+            top: 100px;
+        }
+		button {
+            height: 50px;
+            width: 100px;
+			position: relative;
+			top: 150px;
+            left: 1350px;
+			color: #1A3950;
+			background-color: #F5EDE8;
+			border-radius: 20px;
+			cursor: pointer;
+            font-family: 'Bona Nova', serif;
+            font-size: 16px;
+		}
+		/* .button:hover{
+			color: #ffe1c6;
+			text-decoration: none;
+		} */
+	</style>
+</head>
+<body>
+    <img src="../static/img/mnogomov_panasovych.png" alt="LOGO image"/>
+	<p style="font-weight:900">LESSON IS OVER</p>
+	<p style="font-weight:900">YOU HAVE +{{ score }} POINTS </p>
+	<button onclick="window.location.href='/homepage'">CONTINUE</button>
+</body>
+</html>

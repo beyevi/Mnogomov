@@ -6,40 +6,38 @@
     <script src="../static/js/script.js"></script>
 </head>
 <body>
-<p id="lesson_question">{{ question[1] }}</p>
+<p id="lesson_question">{{ question.text }}</p>
 <picture>
     <img src="../static/img/mnogomov_panasovych.png" alt="SomePicture"/>
 </picture>
 <answer>
   <form id="answer-form" method="post" action="/lesson/submit_answer">
-    <label><input class="answer-option" type="radio" name="question_answer" value="1">{{ question[2] }}</label><br>
-    <label><input class="answer-option" type="radio" name="question_answer" value="2">{{ question[3] }}</label><br>
-    <label><input class="answer-option" type="radio" name="question_answer" value="3">{{ question[4] }}</label><br>
+    <label><input class="answer-option" type="radio" name="question_answer" value="1">{{ question.options[0] }}</label><br>
+    <label><input class="answer-option" type="radio" name="question_answer" value="2">{{ question.options[1] }}</label><br>
+    <label><input class="answer-option" type="radio" name="question_answer" value="3">{{ question.options[2] }}</label><br>
   </form>
 </answer>
-
-
 <check>
     <p id="response_message"></p>
     <button class="submit_btn" onclick="checkAnswer()">Submit</button>
 
-    {% if session.get('current_question') == 1 %}
+    {% if id_current_question == 1 %}
     <div id="footbar_start" class="footbar start">
         <p>We begin here👆</p>
     </div>
     {% endif %}
-    {% if session.get('last_correct_answer') == True and session.get('current_question') != 1 %}
+    {% if result and id_current_question != 1%}
     <div id="footbar_correct" class="footbar green">
         <p>Correct! Now try this👆</p>
     </div>
-    {% elif session.get('last_correct_answer') == False and session.get('current_question') != 1%}
+    {% elif result == False and id_current_question != 1 %}
     <div id="footbar_wrong" class="footbar red">
         <p>Wrong... Maybe this one?👆</p>
     </div>
     {% endif %}
 </check>
 
-{% if current_question < 10 %}
+{% if id_current_question < 10 %}
 <button onclick="window.location.href='/homepage'">Return to main</button>
 {% endif %}
 </body>

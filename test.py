@@ -86,13 +86,20 @@ class LessonQuiz:
         """
         return self.questions[self.current_q_idx]
 
-    def check_answers(self, user_answer):
+    def check_answers(self, user_answer: str) -> bool:
         """
         Check user answers and change score according to results
+
+        :param user_answer: user answer got from 'request.form'
+        :return: True/False
         """
         if self.current_q().correct(user_answer):
+            answer_result = True
             self.score += 1
+        else:
+            answer_result = False
         self.current_q_idx += 1
+        return answer_result
 
     def is_finished(self) -> bool:
         """
@@ -161,9 +168,21 @@ class App:
         self.db = DataBase()
         self.lesson = LessonQuiz(self.db.get_questions_data())
 
+    @app.route('/search', methods=['GET'])
+    def search(self):
+        """
+        Used to find parameters in query
+        """
+        args = request.args
+        result = args.get('result')
+        return True if result == 'True' else False
+
     @staticmethod
     @app.route('/')
     def main():
+        """
+        Render main.html to display a welcome page.
+        """
         return render_template('main.html')
 
     @staticmethod
@@ -172,10 +191,10 @@ class App:
         """
         Render home.html to display a homepage.
         """
-        # ? =====================================================
-        # ? if mnogomov_webapp.lesson.is_finished():
-        # ?    return redirect(url_for('show_score'))
-        # ? =====================================================
+        # =====================================================
+        if mnogomov_webapp.lesson.is_finished():
+            return redirect(url_for('show_score'))
+        # =====================================================
         mnogomov_webapp.lesson.current_q_idx = 0
         return render_template('home.html')
 
@@ -196,40 +215,58 @@ class App:
         return render_template('vocabulary.html')
 
     @staticmethod
+    @app.route('/show_score')
+    def show_score():
+        """
+        Render a page to display user score
+        """
+        score = mnogomov_webapp.lesson.get_score()
+        mnogomov_webapp.lesson.reset_lesson()
+        return render_template('score.html', score=score)
+
+    @staticmethod
+    @app.route('/practice')
+    def practice():
+        """
+        Render practice.html to redirect user to practice tab
+        """
+        return render_template('practice.html')
+
+    @staticmethod
     @app.route('/lesson')
     def display_question():
         """
         Display a question
         """
-        # ? if mnogomov_webapp.lesson.is_finished():
-        # ?    return redirect(url_for('show_score'))
+        if mnogomov_webapp.lesson.is_finished():
+            return redirect(url_for('show_score'))
         question = mnogomov_webapp.lesson.current_q()
+        result = mnogomov_webapp.search()
+        print(result)
         return render_template('lesson.html',
                                question=question,
-                               current_question=mnogomov_webapp.lesson.current_q_idx + 1)
+                               id_current_question=mnogomov_webapp.lesson.current_q_idx + 1,
+                               result=result)
 
     @staticmethod
-    @app.route('/lesson/submit_answer')
+    @app.route('/lesson/submit_answer', methods=["POST"])
     def submit_answer():
+        """
+        Accept user answer and send it to be checked
+        """
         answer = request.form['question_answer']
-        mnogomov_webapp.lesson.check_answers(answer)
-        # ? =====================================================
-        # ? if mnogomov_webapp.lesson.is_finished():
-        # ?    return redirect(url_for('show_score'))
-        # ? =====================================================
-        return redirect(url_for('display_question'))
+        result = mnogomov_webapp.lesson.check_answers(answer)
 
-    # ? =====================================================
-    # ? @staticmethod
-    # ? @app.route('/score')
-    # ? def show_score():
-    # ?    score = mnogomov_webapp.lesson.get_score()
-    # ?    mnogomov_webapp.lesson.reset_lesson()
-    # ?    return render_template('score.html', score=score)
-    # ? =====================================================
+        if mnogomov_webapp.lesson.is_finished():
+            return redirect(url_for('show_score'))
+
+        return redirect(url_for('display_question', result=result))
 
     @staticmethod
     def run():
+        """
+        Run 'Mnogomov'
+        """
         app.run(debug=True)
 
 

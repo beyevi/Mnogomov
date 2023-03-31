@@ -1,5 +1,5 @@
 """
-OOP-ed 'Mnogomov' after Eugene fucked up drastically
+Main. Runs 'Mnogomov'
 """
 
 from flask import Flask, render_template, request, redirect, url_for

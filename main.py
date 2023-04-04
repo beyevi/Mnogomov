@@ -94,7 +94,6 @@ class App:
             return redirect(url_for('show_score'))
         question = mnogomov_webapp.lesson.current_q()
         result = mnogomov_webapp.search()
-        print(result)
         return render_template('lesson.html',
                                question=question,
                                id_current_question=mnogomov_webapp.lesson.current_q_idx + 1,

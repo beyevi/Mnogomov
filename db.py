@@ -2,8 +2,7 @@
 MySQL database, that keeps data about lessons
 """
 
-# import mysql.connector
-import pymysql
+import mysql.connector
 import question
 from config import host, user, password, port, database
 
@@ -15,7 +14,7 @@ class DataBase:
     """
 
     def __init__(self):
-        self.db = pymysql.connect(
+        self.db = mysql.connector.connect(
             host=host,
             user=user,
             password=password,
